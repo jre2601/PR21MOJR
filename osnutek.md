@@ -19,9 +19,7 @@ Parkirisca.csv:
 - Datum - čas ob vnosu (timestamp); string
 - Prosta mesta - število prostih mest; numeric
 - Kapaciteta - število vseh mest; numeric
-- Odstotek zasedenosti - razmerje med prostimi mesti in kapaciteto
 - Na voljo (narocniki) - kapaciteta mest za naročnike; numeric
 - Oddana (narocniki) - število mest, ki jih naročniki uporabljajo; numeric
 - Prosta (narocniki) - število prostih mest za naročnike; numeric
-- Cakalna vrsta (narocniki) - **????**; numeric
-
+- Cakalna vrsta (narocniki) - število ljudi, ki čaka za nakup naročnine; numeric
