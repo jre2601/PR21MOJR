@@ -1,6 +1,11 @@
-# PR21MOJR
+# Analiza zasedenosti parkirnih mest v Ljubljani in okolici
 
 Seminarska naloga za predmet Podatkovno rudarjenje na Fakuteti za računalništvo in informatiko v študijskem letu 2021/2022.
+
+## Ekipa
+
+- Matija Ojo
+- Jan Renar
 
 ## Problem
 
