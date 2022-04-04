@@ -3,7 +3,7 @@ import requests
 import csv
 import os
 from datetime import datetime
-from time import sleep
+from time import sleep, mktime
 
 
 def map_to_ascii(s):
@@ -13,7 +13,7 @@ def map_to_ascii(s):
 
 csv_file = open("Parkirisca.csv", "a")
 csv_writer = csv.writer(csv_file)
-format_ = ["Parkirisce", "Datum", "Prosta mesta", "Kapaciteta", "Odstotek zasedenosti",
+format_ = ["Parkirisce", "Datum", "Prosta mesta", "Kapaciteta",
            "Na voljo (narocniki)", "Oddana (narocniki)", "Prosta (narocniki)", "Cakalna vrsta (narocniki)"]
 csv_writer.writerow(format_)
 print("Format zapisa: ", format_)
@@ -35,13 +35,12 @@ try:
 
         for (parkirisce, mesta, n) in zip(parkirisca, zip(mesta[2::2], mesta[3::2]), nar):
             ime = map_to_ascii(parkirisce.get_text())
-            datum = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            datum = int(datetime.now().timestamp())  # UNIX UTC timestamp
             prosta_mesta = 0 if mesta[0] == "/" else int(mesta[0])
             kapaciteta = 0 if mesta[1] == "/" else int(mesta[1])
-            odstotek_zasedenosti = "/" if kapaciteta == 0 else prosta_mesta / kapaciteta
             nx = [n[i].get_text() for i in range(4)]  # narocniki
 
-            out = [ime, datum, prosta_mesta, kapaciteta, odstotek_zasedenosti, *nx]
+            out = [ime, datum, prosta_mesta, kapaciteta, *nx]
             csv_writer.writerow(out)
             print(out)
 
