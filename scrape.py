@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 import csv
-import os
 from datetime import datetime
 from time import sleep, mktime
 
@@ -22,7 +21,13 @@ LINK = "https://www.lpt.si/parkirisca/informacije-za-parkiranje/prikaz-zasedenos
 
 try:
     while True:
-        source = requests.get(LINK).text
+        try:
+            source = requests.get(LINK).text
+        except Exception:
+            print("Could not access server...")
+            sleep(600)  # 10 min
+            continue
+
         soup = BeautifulSoup(source, "lxml")
 
         parkirisca = soup.find_all("a", class_="text-green underline hover:font-bold")
