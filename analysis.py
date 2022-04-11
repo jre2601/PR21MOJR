@@ -1,10 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
+# import json
 
 data = np.loadtxt(open("Parkirisca_do_04_04_2022.csv", "r"), dtype=str, delimiter=",", skiprows=1)
 parking_names = np.unique(data[:, 0])
 all_parkings = np.array(tuple(data[data[:, 0] == name] for name in parking_names))
+# all_parkings_json = dict()
 
 print(all_parkings.shape)
 print(all_parkings)
@@ -24,6 +26,11 @@ def plot_parking(parking):
     name = parking[0][0]
     capacity = int(parking[parking[:, 3].astype(int) != 0][0][3])
     min_x, max_x = np.min(parking[:, 1].astype(int)), np.max(parking[:, 1].astype(int))
+   
+    # all_parkings_json[name] = {
+    #     "timestamps": list(parking[:, 1]),
+    #     "percent_occupied": list((parking[:, 3].astype(int) - parking[:, 2].astype(int)) / parking[:, 3].astype(int)),
+    # }
 
     # X: date, Y: capacity - n_free_spots = n_occupied
     plt.plot(tuple(map(datetime.fromtimestamp, parking[:, 1].astype(int))), parking[:, 3].astype(
@@ -41,3 +48,6 @@ for parking in parkings:
     if parking.size == 0:
         continue
     plot_parking(parking)
+    
+# with open('js.json', 'w') as f:
+#     json.dump(all_parkings_json, f)
