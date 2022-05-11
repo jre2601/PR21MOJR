@@ -4,7 +4,6 @@ import datetime
 import numpy as np
 from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
-import seaborn as sns
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.tsa.arima.model import ARIMA
 
@@ -21,7 +20,7 @@ btc.index = pd.to_datetime(btc['Date'], format='%Y-%m-%d')
 del btc['Date']
 
 print(btc.head())
-sns.set()
+
 # plt.ylabel('BTC Price')
 # plt.xlabel('Date')
 # plt.xticks(rotation=45)
@@ -41,36 +40,35 @@ y = train['BTC-USD']
 print(y)
 
 
-# ARMAmodel = SARIMAX(y, order=(1, 0, 1))
-# ARMAmodel = ARMAmodel.fit()
+ARMAmodel = SARIMAX(y, order=(1, 0, 1))
+ARMAmodel = ARMAmodel.fit()
 
-# y_pred = ARMAmodel.get_forecast(len(test.index))
-# y_pred_df = y_pred.conf_int(alpha=0.05)
-# y_pred_df["Predictions"] = ARMAmodel.predict(start=y_pred_df.index[0], end=y_pred_df.index[-1])
-# y_pred_df.index = test.index
-# y_pred_out = y_pred_df["Predictions"]
-# plt.plot(y_pred_out, color='green', label='ARMA Predictions')
-# plt.legend()
-
-
-# arma_rmse = np.sqrt(mean_squared_error(test["BTC-USD"].values, y_pred_df["Predictions"]))
-# print("ARMA RMSE: ", arma_rmse)
+y_pred = ARMAmodel.get_forecast(len(test.index))
+y_pred_df = y_pred.conf_int(alpha=0.05)
+y_pred_df["Predictions"] = ARMAmodel.predict(start=y_pred_df.index[0], end=y_pred_df.index[-1])
+y_pred_df.index = test.index
+y_pred_out = y_pred_df["Predictions"]
+plt.plot(y_pred_out, color='green', label='ARMA Predictions')
+plt.legend()
 
 
-# ARIMAmodel = ARIMA(y, order=(5, 4, 2))
-# ARIMAmodel = ARIMAmodel.fit()
-
-# y_pred = ARIMAmodel.get_forecast(len(test.index))
-# y_pred_df = y_pred.conf_int(alpha=0.05)
-# y_pred_df["Predictions"] = ARIMAmodel.predict(start=y_pred_df.index[0], end=y_pred_df.index[-1])
-# y_pred_df.index = test.index
-# y_pred_out = y_pred_df["Predictions"]
-# plt.plot(y_pred_out, color='Yellow', label='ARIMA Predictions')
-# plt.legend()
+arma_rmse = np.sqrt(mean_squared_error(test["BTC-USD"].values, y_pred_df["Predictions"]))
+print("ARMA RMSE: ", arma_rmse)
 
 
-# arma_rmse = np.sqrt(mean_squared_error(test["BTC-USD"].values, y_pred_df["Predictions"]))
-# print("ARIMA RMSE: ", arma_rmse)
+ARIMAmodel = ARIMA(y, order=(5, 4, 2))
+ARIMAmodel = ARIMAmodel.fit()
+
+y_pred = ARIMAmodel.get_forecast(len(test.index))
+y_pred_df = y_pred.conf_int(alpha=0.05)
+y_pred_df["Predictions"] = ARIMAmodel.predict(start=y_pred_df.index[0], end=y_pred_df.index[-1])
+y_pred_df.index = test.index
+y_pred_out = y_pred_df["Predictions"]
+plt.plot(y_pred_out, color='Yellow', label='ARIMA Predictions')
+plt.legend()
+
+arma_rmse = np.sqrt(mean_squared_error(test["BTC-USD"].values, y_pred_df["Predictions"]))
+print("ARIMA RMSE: ", arma_rmse)
 
 
 # Seasonal Auto-Regressive Integrated Moving Average with eXogenous factors
