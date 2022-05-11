@@ -12,6 +12,8 @@ print(all_parkings.shape)
 print(all_parkings)
 # Filter out empty data
 empty_parkings = np.fromiter((not np.any(parking[:, 2].astype(int)) for parking in all_parkings), dtype=bool)
+# print("Number of empty parkings: ", sum(1 for _ in filter(lambda x: x == True, empty_parkings)))
+
 parkings = np.delete(all_parkings, empty_parkings, axis=0)
 
 
