@@ -3,7 +3,7 @@ import numpy as np
 from datetime import datetime
 # import json
 
-data = np.loadtxt(open("Parkirisca_do_04_04_2022.csv", "r"), dtype=str, delimiter=",", skiprows=1)
+data = np.loadtxt(open("Parkirisca_do_10_05_2022.csv", "r"), dtype=str, delimiter=",", skiprows=1)
 parking_names = np.unique(data[:, 0])
 all_parkings = np.array(tuple(data[data[:, 0] == name] for name in parking_names))
 # all_parkings_json = dict()
@@ -42,7 +42,7 @@ def plot_parking(parking):
     plt.title(f"Parkirisce: {name}")
     plt.show()
 
-filter_to_date(parkings, "2022-03-15")
+filter_to_date(parkings, "2022-05-11")
 
 for parking in parkings:
     if parking.size == 0:
