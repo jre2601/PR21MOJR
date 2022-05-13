@@ -5,6 +5,7 @@ import plotly.express as px  # to plot the time series plot
 from sklearn import metrics  # for the evaluation
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 # import tensorflow as tf
+from foursquareAPI import get_poi
 
 
 df = pd.read_csv("Parkirisca_do_10_05_2022.csv")
@@ -75,6 +76,7 @@ def copy_and_impute(parking):
 parkings = {}
 for name, group in df.groupby("Parkirisce"):
     name = str(name)
+    print(name)
     parking = group
 
     parking = parking.set_index('date')
@@ -93,10 +95,14 @@ for name, group in df.groupby("Parkirisce"):
     parking_sync = pd.DataFrame(copy_and_impute(parking))
     parking_sync["Kapaciteta"] = parking["Kapaciteta"]
     parking_sync["Kapaciteta"] = [capacity for _ in range(len(parking_sync.index))]
+    
 
-    # # Print entire dataframe
-    # with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-    #     print(parking_sync)
+    # TODO: Repeat this data for each row in the dataframe!
+    parking_sync["Points_of_interest"] = get_poi(name, radius=50) # Add points of interest to dataframe
+
+    # Print entire dataframe
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+        print(parking_sync)
 
     parkings['parking_' + name] = parking_sync  # Save the synced data frame to dict
 
