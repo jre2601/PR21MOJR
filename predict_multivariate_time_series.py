@@ -72,30 +72,40 @@ def copy_and_impute(parking):
 
     return parking_sync
 
-
 parkings = {}
 for name, group in df.groupby("Parkirisce"):
+    name = str(name)
     parking = group
 
     parking = parking.set_index('date')
-    parking = parking.drop(["Parkirisce", "Prosta mesta", "Kapaciteta"], axis=1)  # TODO: Obdrzi kapaciteto??
+    parking = parking.drop(["Parkirisce", "Prosta mesta"], axis=1)
 
-    parking_sync = copy_and_impute(parking)
+    capacity = 0
+    for _, row in parking.iterrows():
+        if row["Kapaciteta"] != 0:
+            capacity = row["Kapaciteta"]
+            break
+
+    # Filter empty data (10 parkings)
+    if (parking["Zasedenost"] == 0).all() or (parking["Zasedenost"] == capacity).all():
+        continue
+
+    parking_sync = pd.DataFrame(copy_and_impute(parking))
+    parking_sync["Kapaciteta"] = parking["Kapaciteta"]
+    parking_sync["Kapaciteta"] = [capacity for _ in range(len(parking_sync.index))]
 
     # # Print entire dataframe
     # with pd.option_context('display.max_rows', None, 'display.max_columns', None):
     #     print(parking_sync)
 
-    parkings['parking_' + str(name)] = parking_sync  # Save the synced data frame to dict
+    parkings['parking_' + name] = parking_sync  # Save the synced data frame to dict
 
-    # plt.plot(parking)
     plt.plot(parking_sync)
     plt.gcf().autofmt_xdate()
     plt.xlabel("Datum")
     plt.ylabel("Stevilo zasedenih mest")
-    plt.title(f"Parkirisce: {str(name)}")
+    plt.title(f"Parkirisce: {name}")
     plt.show()
-    break
 
 
-# print(parkings)
+print(parkings)
