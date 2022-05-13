@@ -40,7 +40,6 @@ parking_coords = [
     [14.526815, 46.069497, "Zale IV."],
     [14.531361, 46.074782, "Zale V."],
 ]
-# TODO: Multivariate Time Series: https://www.analyticsvidhya.com/blog/2018/09/multivariate-time-series-guide-forecasting-modeling-python-codes/
 
 headers = {
     "Accept": "application/json",
