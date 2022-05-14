@@ -62,6 +62,8 @@ headers = {
 
 
 def get_poi(park_name, radius=50):
+    if park_name not in park_locations:
+        return None
     location = park_locations[park_name]
     ll = "{:.3f}".format(location[1]) + "%2C" + "{:.3f}".format(location[0])
 
@@ -69,7 +71,25 @@ def get_poi(park_name, radius=50):
     response = requests.get(url, headers=headers)
     park_data = json.loads(response.text)
 
-    return [", ".join(map(lambda c: c["name"], poi["categories"])) for poi in park_data["results"]]
+    return tuple((poi["distance"], poi["categories"][0]["name"]) for poi in park_data["results"] if poi["categories"])
 
 
-print(get_poi("Petkovskovo nabrezje II."))
+# print(get_poi("Bezigrad"))
+
+
+
+# radius = 1000
+# s = set()
+# for park_name in park_locations:
+#     location = park_locations[park_name]
+#     ll = "{:.3f}".format(location[1]) + "%2C" + "{:.3f}".format(location[0])
+
+#     url = "https://api.foursquare.com/v3/places/search?ll="+ll+"&radius="+str(radius)
+#     response = requests.get(url, headers=headers)
+#     park_data = json.loads(response.text)
+
+#     for poi in park_data["results"]:
+#         if poi["categories"]:
+#             s.add(poi["categories"][0]["name"])
+
+# print(s)
