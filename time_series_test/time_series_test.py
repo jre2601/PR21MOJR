@@ -1,5 +1,4 @@
 import pandas as pd
-import pandas_datareader as web
 import datetime
 import numpy as np
 from sklearn.metrics import mean_squared_error
@@ -38,7 +37,6 @@ plt.title("Train/Test split for BTC Data")
 
 y = train['BTC-USD']
 print(y)
-
 
 ARMAmodel = SARIMAX(y, order=(1, 0, 1))
 ARMAmodel = ARMAmodel.fit()
