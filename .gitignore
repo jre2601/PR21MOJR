@@ -3,3 +3,4 @@ node_modules
 key.local
 __pycache__/
 models/
+.ipynb_checkpoints
