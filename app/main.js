@@ -57,7 +57,7 @@ $('input[name="daterange"]').on('apply.daterangepicker', (ev, picker) => {
         }
     }
     i = startIndex;
-    console.log(startIndex, endIndex);
+    // console.log(startIndex, endIndex);
 });
 
 const aSpeed = document.getElementById('speed');
