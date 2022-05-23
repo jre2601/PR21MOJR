@@ -1,0 +1,137 @@
+@import "node_modules/ol/ol.css";
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.map {
+    width: 100%;
+    height: auto;
+    margin-top: 130px;
+}
+
+.menu {
+    height: 50px;
+    background-color: #0d6efd !important;
+    position: relative;
+    border-radius: 12px;
+    border: 1px solid #0d6efd;
+    color: whitesmoke !important;
+    font-size: 16px;
+    transition: all .5s;
+    display: inline-block;
+    text-decoration: none !important;
+    padding: 11px 5px 0 5px;
+    margin-top: 36px;
+    margin-left: 10px;
+}
+
+.menu:hover {
+    background-color: whitesmoke !important;
+    color: #0d6efd !important;
+}
+#clearRec {
+    float: right;
+    margin-right: 20px;
+    width: 50px;
+    padding-top: 7px;
+    padding-left: 12px;
+    padding-right: 0px;
+    font-size: 24px;
+  
+}
+#clearRec:hover {
+    color: red !important;
+}
+#container {
+    position: absolute;
+    left: 50%;
+    width: 1020px;
+    transform: translateX(-50%);
+    display: inline-block;
+}
+
+input[name="daterange"] {
+    position: relative;
+    top: -6px;
+}
+
+#container button {
+    height: 70px;
+    width: 70px;
+    background-color: #0d6efd;
+    position: relative;
+    border-radius: 15px;
+    border: 1px solid #0d6efd;
+    color: whitesmoke;
+    font-size: 30px;
+    transition: all .5s;
+}
+
+#speedControls {
+    top: 16px;
+    width: 300px;
+    background-color: #0d6efd;
+    position: relative;
+    border-radius: 15px;
+    border: 1px solid #0d6efd;
+    color: whitesmoke;
+    font-size: 21px;
+    transition: all .5s;
+    display: inline-block;
+}
+
+#speedControls>input,
+label {
+    margin-left: 15px;
+}
+
+#container button:hover {
+    background-color: whitesmoke;
+    color: #0d6efd;
+}
+
+.activeButton {
+    background-color: whitesmoke !important;
+    color: #0d6efd !important;
+}
+
+#currentTime {
+    width: 250px;
+    height: 70px;
+    top: 24px;
+    background-color: #0d6efd;
+    position: relative;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+#currentTime p {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: whitesmoke;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+#currentTime p:nth-of-type(2) {
+    top: 30px;
+}
+
+.header {
+    color: #0d6efd;
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+}
